@@ -21,6 +21,12 @@ const getState = ({ getStore, getActions, setStore }) => {
         getActions().changeColor(0, "green");
       },
 
+      createAgenda: () => {
+        fetch("https://playground.4geeks.com/contact/agendas/emfs", {
+          method: "POST",
+        });
+      },
+
       sendSomeData: (obj) => {
         fetch("https://playground.4geeks.com/contact/agendas/emfs/contacts", {
           method: "POST",

@@ -10,7 +10,7 @@ export function Home() {
     <div className=" mx-lg-5 px-lg-5">
       <div className="mx-lg-5 px-lg-5">
         <div className="mx-lg-5 px-lg-5">
-          <div className="text-lg-end mx-lg-5">
+          <div className="text-center py-3 text-lg-end mx-lg-5">
             <button type="button " className="btn btn-success mt-lg-3">
               <Link
                 style={{ textDecoration: "none", color: "white" }}

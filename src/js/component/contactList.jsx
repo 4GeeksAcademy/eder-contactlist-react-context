@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import { Context } from "../store/appContext";
 import { useEffect } from "react";
@@ -8,6 +9,11 @@ export function ContactList() {
   const { store, actions } = useContext(Context);
   const contactId = useRef(null);
   const stageEdit = useRef({});
+  const navigate = useNavigate();
+
+  function handleNavigate() {
+    navigate("/");
+  }
 
   function checkStageEdit() {
     for (const [key, value] of Object.entries(stageEdit.current)) {
@@ -22,6 +28,7 @@ export function ContactList() {
   //console.log(useContext(Context));
   //console.log(store.contacts);
   useEffect(() => {
+    actions.createAgenda();
     actions.loadSomeData();
   }, []);
 
@@ -30,7 +37,7 @@ export function ContactList() {
       <div className="card mb-3 mt-5" style={{ maxHeight: "240px" }}>
         <div className="row g-0" style={{ maxHeight: "240px" }}>
           <div
-            className="col-md-3 col-lg-3 text-center"
+            className=" col col-md-3 col-lg-3 text-center"
             style={{ maxHeight: "240px" }}
           >
             <img
@@ -44,20 +51,20 @@ export function ContactList() {
               alt="..."
             />
           </div>
-          <div className="col-lg-7 ps-lg-3" style={{ maxHeight: "240px" }}>
+          <div className=" col col-lg-7 ps-lg-3" style={{ maxHeight: "240px" }}>
             <div className="card-body h-100 align-content-center ">
               <h5 className="card-title">{value.name}</h5>
               <div className="d-flex my-lg-3">
                 <i className="fa-solid fa-location-dot lh-base"></i>
-                <p className="card-text ms-lg-4">{value.address}</p>
+                <p className=" ms-1 card-text ms-lg-4">{value.address}</p>
               </div>
               <div className="d-flex  my-lg-3">
                 <i className="fa-solid fa-phone-flip lh-base"></i>
-                <p className="card-text ms-lg-4">{value.phone}</p>
+                <p className="ms-1 card-text ms-lg-4">{value.phone}</p>
               </div>
               <div className="d-flex  my-lg-3">
                 <i className="fa-solid fa-envelope lh-base"></i>
-                <p className="card-text ms-lg-4">
+                <p className=" ms-1 card-text ms-lg-4">
                   <small>{value.email}</small>
                 </p>
               </div>
@@ -67,7 +74,7 @@ export function ContactList() {
             className=" row col text-center justify-content-around"
             style={{ maxHeight: "240px" }}
           >
-            <div className="col pt-lg-4">
+            <div className="col pt-lg-4 d-flex align-items-center  align-items-md-baseline  align-items-lg-baseline">
               <button
                 type="button"
                 className="btn btn-primary"
@@ -80,7 +87,7 @@ export function ContactList() {
                 <i className="  fa-solid fa-pen"></i>
               </button>
             </div>
-            <div className="col pt-lg-4">
+            <div className="col pt-lg-4 d-flex align-items-center align-items-md-baseline align-items-lg-baseline">
               <button
                 type="button"
                 className="btn btn-primary"
@@ -88,6 +95,8 @@ export function ContactList() {
                 data-bs-target={`#exampleModal${index}`}
                 onClick={(e) => {
                   contactId.current = e.target.childNodes[0].id;
+                  actions.loadSomeData();
+                  handleNavigate();
                 }}
               >
                 <i
@@ -96,6 +105,8 @@ export function ContactList() {
                   onClick={(e) => {
                     e.stopPropagation();
                     contactId.current = e.target.id;
+                    actions.loadSomeData();
+                    handleNavigate();
                   }}
                 ></i>
               </button>
@@ -140,6 +151,7 @@ export function ContactList() {
                     onClick={() => {
                       actions.deleteSomeData(contactId.current),
                         actions.loadSomeData();
+                      handleNavigate();
                     }}
                   >
                     Delete!
@@ -292,6 +304,7 @@ export function ContactList() {
                     onClick={(e) => {
                       checkStageEdit();
                       actions.updateSomeData(e.target.id, stageEdit.current);
+                      handleNavigate();
                       actions.loadSomeData();
                     }}
                   >

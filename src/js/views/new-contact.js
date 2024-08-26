@@ -106,6 +106,7 @@ export function NewContact() {
                   onClick={() => {
                     actions.sendSomeData(contactInfo.current);
                     handleNavigate();
+                    actions.loadSomeData();
                   }}
                 >
                   Save
